@@ -23,7 +23,7 @@ class Doctor(db.Model,UserMixin):
     status = db.Column(db.Boolean,default=True)
     department_id = db.Column(db.Integer, db.ForeignKey("departments.id"))
     appointments = db.relationship("Appointment",backref="doctor")
-    doctor_availability = db.relationship("Doctor_Availability",backref="doctor")
+    doctor_availability = db.relationship("Doctor_Availability",backref="doctor",cascade="all, delete-orphan")
     def get_id(self):
         return self.email
 
@@ -32,7 +32,7 @@ class Departments(db.Model):
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     name = db.Column(db.String, unique = True)
     description = db.Column(db.Text)
-    doctors = db.relationship("Doctor", backref = "department")
+    doctors = db.relationship("Doctor", backref = "department",cascade="all, delete-orphan")
     
 class Patient(db.Model,UserMixin):
     __tablename__ = "patient"
@@ -45,7 +45,7 @@ class Patient(db.Model,UserMixin):
     dob = db.Column(db.Date)
     address = db.Column(db.Text)
     status = db.Column(db.Boolean,default=True)
-    appointments = db.relationship("Appointment",backref="patient")
+    appointments = db.relationship("Appointment",backref="patient",cascade="all, delete-orphan")
     def get_id(self):
         return self.email
 
@@ -60,7 +60,7 @@ class Appointment(db.Model):
     time = db.Column(db.Time)
     reason_of_visit = db.Column(db.Text)
     booked_at = db.Column(db.DateTime)
-    treatment_details = db.relationship("Treatment",backref="appointment_details")
+    treatment_details = db.relationship("Treatment",backref="appointment_details",cascade="all, delete-orphan")
 
 class Doctor_Availability(db.Model):
     __tablename__="doctor_availability"
@@ -70,7 +70,7 @@ class Doctor_Availability(db.Model):
     start_time = db.Column(db.Time)
     end_time = db.Column(db.Time)
     is_booked = db.Column(db.Boolean)
-    appointments = db.relationship("Appointment",backref="avlb_slot")
+    appointments = db.relationship("Appointment",backref="avlb_slot",cascade="all, delete-orphan")
 
 class Treatment(db.Model):
     __tablename__ = "treatment"

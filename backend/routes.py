@@ -13,7 +13,6 @@ def inactive_users():
         logout_user()
         return redirect(url_for("login", msg=msg))
 
-
 @app.route("/")
 def home():
     return render_template("home.html")
@@ -450,8 +449,6 @@ def check_availability():
                         
         db.session.commit()
         return redirect("/dashboard/patient")
-
-
 
 @app.route("/search")
 def search():

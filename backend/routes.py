@@ -171,10 +171,11 @@ def blacklist_doc():
 def edit_patient():
     patient_id=request.args.get("id")
     p_obj=db.get_or_404(Patient,patient_id)
-    dob=request.form.get("p_date_of_birth")
-    dob_obj=datetime.strptime(dob, "%Y-%m-%d").date()
+    
         
     if request.method == "POST":
+        dob=request.form.get("p_date_of_birth")
+        dob_obj=datetime.strptime(dob, "%Y-%m-%d").date()
         p_obj.full_name=request.form.get("p_name")
         p_obj.password=request.form.get("p_pswd")
         p_obj.dob = dob_obj
@@ -478,15 +479,15 @@ def search():
                 for availability in doctor.doctor_availability:
                     if availability.date==date_obj:
                         if availability.date==date.today() and availability.start_time<=datetime.now().time():
-                            print(availability.start_time)
-                            continue
-                        if availability.is_active:
-                            print(availability.start_time)
-                            continue   
+                            if availability.is_active:
+                                continue   
                         date_available_docs.append(doctor)
                         break
 
-    return render_template("admin/search.html",date_obj=date_obj if date_query else None,search_by_date=search_by_date,departments=departments,date_available_docs=date_available_docs,search_query=search_query,doctors=doctors,patients=patients if isinstance(current_user, Admin) else None, back_url="/dashboard/admin" if isinstance(current_user, Admin) else "/dashboard/patient")
+    return render_template("admin/search.html",date_obj=date_obj if date_query else None,search_by_date=search_by_date,
+                           departments=departments,date_available_docs=date_available_docs,search_query=search_query,
+                           doctors=doctors,patients=patients if isinstance(current_user, Admin) else None, 
+                           back_url="/dashboard/admin" if isinstance(current_user, Admin) else "/dashboard/patient")
     
 
 

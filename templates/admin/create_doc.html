@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Doctor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+    <div class="container min-vh-100 d-flex justify-content-center align-items-center bg-light">
+        <div class="card shadow p-4" style="width: 400px;">
+            <h3 class="text-center mb-4">Create Doctor</h3>
+            <form action="/create/doc" method="POST">
+                <div class="mb-3">
+                    <label for="full_name" class="form-label">Full name:</label>
+                    <input type="text" class="form-control" id="full_name" placeholder="Enter full name"
+                        name="doc_name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="user_name" class="form-label">User_name:</label>
+                    <input type="text" class="form-control" id="user_name" placeholder="Enter a user_name"
+                        name="doc_user_name" required>
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="doc_email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="pwd" class="form-label">Password:</label>
+                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="doc_pswd" required>
+                </div>
+                <div class="mb-3">
+                    <label for="contact_number" class="form-label">Contact number:</label>
+                    <input type="tel" class="form-control" id="contact_number" placeholder="Enter contact number"
+                        name="doc_contact_number" pattern="[6-9]{1}[0-9]{9}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="qualification" class="form-label">Qualification:</label>
+                    <input type="text" class="form-control" id="qualification" placeholder="Enter qualifications"
+                        name="doc_qualification" required>
+                </div>
+                <div class="mb-3">
+                    <label for="experience" class="form-label">Experience:</label>
+                    <input type="text" class="form-control" id="experience" placeholder="Enter experience"
+                        name="doc_experience" required>
+                </div>
+                <div class="mb-4">
+                    <label for="department_id" class="form-label">Department ID:</label>
+                    <select class="form-select" name="department_id" id="department_id" required>
+                        <option selected disabled>Select Department ID</option>
+                        {% for department in departments %}
+                        <option value="{{department.id}}">{{department.id}}-{{department.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a href="/dashboard/admin" class="btn btn-secondary" type="button">Back</a>
+                    <button type="submit" class="btn btn-success">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+
+</html>

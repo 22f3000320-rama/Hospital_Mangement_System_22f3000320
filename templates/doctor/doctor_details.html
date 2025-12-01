@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+    <div class="container min-vh-100 d-flex justify-content-center align-items-center bg-light">
+        <div class="card shadow p-4" style="width: 400px;">
+                <div>
+                    <i class="bi bi-person-circle fs-1"></i>
+                </div>
+                    <div>
+                        <h5 class="card-title mb-1">{{ doctor.full_name }}</h5>
+                        <p class="text-muted mb-0">{{ doctor.department.name }}</p>
+                    </div>
+            
+
+
+                <hr class="my-3">
+                <div class="mb-2">
+                    <strong>Experience:</strong> {{ doctor.description }}
+                </div>
+                <div class="mb-2">
+                    <strong>Qualification:</strong> {{ doctor.qualification }}
+                </div>
+                <div class="mb-2">
+                    <strong>Email:</strong> {{ doctor.email }}
+                </div>
+
+                <hr class="my-3">
+                <div class="d-flex justify-content-between">
+                    <a href="/view/department?department_id={{doctor.department.id}}"
+                        class="btn btn-sm btn-secondary">Go Back</a>
+                    <a href="/check_availability?doc_id={{doctor.id}}" class="btn btn-sm btn-primary">Check Availability</a>
+                </div>
+            </div>
+        </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+
+</html>

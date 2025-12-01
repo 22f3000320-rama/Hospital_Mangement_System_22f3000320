@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+    <div class="container mt-4 mb-5">
+        <h3 class="mb-3">Search Results for "<span class="text-primary">{{ search_query }}</span>"</h3>
+
+        {% if not doctors and not patients and not departments %}
+        <div class="alert alert-warning text-center">No results found.</div>
+        {% endif %}
+
+        {% if search_by_date %}
+        {% if date_available_docs %}
+        <div class="card mt-5 ms-2 me-2 mb-3">
+            <div class="card-header bg-info d-flex">
+                <h5>Doctors Available on {{date_obj.strftime("%d-%m-%Y")}}:</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Sr no</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for available_doc in date_available_docs %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ available_doc.full_name }}</td>
+                            <td>{{ available_doc.department.name }}</td>
+                            <td><a href="/check_availability?doc_id={{available_doc.id}}" class="btn btn-sm btn-outline-success">Check Availability</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+        <div class="card mt-5 ms-2 me-2 mb-3">
+            <div class="card-header bg-warning d-flex">
+                <h5>No Doctors Available on {{date_obj.strftime("%d-%m-%Y")}}</h5>
+            </div>
+        </div>
+        {% endif %}
+        {% endif %}
+
+
+        {% if doctors %}
+        <div class="card mt-5 ms-2 me-2 mb-5">
+            <div class="card-header bg-info d-flex">
+                <h5>Doctors:</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Sr no</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Contact</th>
+                            <th>Department</th>
+                            <th>Qualification</th>
+                            <th>Experience</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for d in doctors %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ d.full_name }}</td>
+                            <td>{{ d.email }}</td>
+                            <td>{{ d.contact_no }}</td>
+                            <td>{{ d.department.name }}</td>
+                            <td>{{ d.qualification }}</td>
+                            <td>{{ d.description }}</td>
+                            <td>{% if d.status %}
+                                Active
+                                {% else %}
+                                Inactive
+                                {% endif %}</td>
+                            <td><a href="/check_availability?doc_id={{d.id}}" class="btn btn-sm btn-outline-success">Check Availability</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if patients %}
+        <div class="card mt-5 ms-2 me-2 mb-3">
+            <div class="card-header bg-info d-flex">
+                <h5>Patients:</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Contact</th>
+                            <th>Date of Birth</th>
+                            <th>Address</th>
+                            <th>Status</th>
+                            <th>History</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in patients %}
+                        <tr>
+                            <td>{{ p.id }}</td>
+                            <td>{{ p.full_name }}</td>
+                            <td>{{ p.email }}</td>
+                            <td>{{ p.contact_no }}</td>
+                            <td>{{ p.dob }}</td>
+                            <td>{{ p.address }}</td>
+                            <td>{% if p.status %}
+                                Active
+                                {% else %}
+                                Inactive
+                                {% endif %}</td>
+                            <td><a href="/patient_history?id={{p.id}}" type="button"
+                                class="btn btn-outline-primary btn-sm">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if departments %}
+        <div class="card mt-5 ms-2 me-2 mb-3">
+            <div class="card-header bg-info d-flex">
+                <h5>Department:</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Sr no</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Doctors</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for department in departments %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ department.name }}</td>
+                            <td>{{ department.description }}</td>
+                            
+                            <td>{% for doctor in department.doctors %}{{ doctor.full_name }}<br>{% endfor %}</td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="text-end me-5">
+            <a href="{{back_url}}" class="btn btn-primary" type="button">Back</a>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Patient</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container min-vh-100 d-flex justify-content-center align-items-center bg-light">
+        <div class="card shadow p-4" style="width: 400px;">
+            <h3 class="text-center mb-4">Edit Patient Details</h3>
+            <form action="/edit/patient?id={{p_obj.id}}" method="POST">
+                <div class="mb-3">
+                    <label for="full_name" class="form-label">Full name:</label>
+                    <input type="text" class="form-control" id="full_name" value="{{p_obj.full_name}}" name="p_name"
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label for="user_name" class="form-label">User_name:</label>
+                    <input type="text" class="form-control" id="user_name" value="{{p_obj.username}}" name="p_user_name"
+                        disabled>
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" id="email" value="{{p_obj.email}}" name="p_email" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="pwd" class="form-label">Password:</label>
+                    <input type="password" class="form-control" id="pwd" value="{{p_obj.password}}" name="p_pswd"
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label for="contact_number" class="form-label">Contact number:</label>
+                    <input type="tel" class="form-control" id="contact_number" value="{{p_obj.contact_no}}" pattern="[6-9]{1}[0-9]{9}"
+                        name="p_contact_number" required>
+                </div>
+                <div class="mb-3">
+                    <label for="date_of_birth" class="form-label">Date of birth:</label>
+                    <input type="date" class="form-control" id="date_of_birth" value="{{p_obj.dob}}"
+                        name="p_date_of_birth" required>
+                </div>
+                <div class="mb-4">
+                    <label for="address" class="form-label">Address:</label>
+                    <input type="text" class="form-control" id="address" value="{{p_obj.address}}" name="p_address"
+                        required>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a href="{{back_url}}" class="btn btn-secondary" type="button">Back</a>
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+
+</html>

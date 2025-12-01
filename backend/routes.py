@@ -479,8 +479,9 @@ def search():
                 for availability in doctor.doctor_availability:
                     if availability.date==date_obj:
                         if availability.date==date.today() and availability.start_time<=datetime.now().time():
-                            if availability.is_active:
-                                continue   
+                            continue
+                        if not availability.is_active:  
+                            continue
                         date_available_docs.append(doctor)
                         break
 

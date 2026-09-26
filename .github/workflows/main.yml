@@ -7,16 +7,9 @@ on:
   workflow_dispatch: # Allows manual triggering
 
 jobs:
-  collect-iss-data:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
+  test:
+      runs-on: ubuntu-latest
+      steps:
+      - name: 22f3000320@ds.study.iitm.ac.in
+        run: echo "Hello, world!"
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Commit and push changes
-        run: | # shell
-          git add main.yaml
-          git commit -m "GitHub Action" || exit 0
-          git push

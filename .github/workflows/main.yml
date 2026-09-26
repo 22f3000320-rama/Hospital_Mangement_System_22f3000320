@@ -1,0 +1,22 @@
+name: github action
+
+on:
+  schedule:
+    # Runs at 12:00 UTC (noon) every day
+    - cron: "0 12 * * *"
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  collect-iss-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Commit and push changes
+        run: | # shell
+          git add main.yaml
+          git commit -m "GitHub Action" || exit 0
+          git push
